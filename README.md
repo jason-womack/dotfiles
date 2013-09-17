@@ -5,7 +5,7 @@ What you have found is a sample application used by Placeable.  We use this appl
 If you've joined the team, or are thinking about joining, please read on.  If not, please leave things as you found them.
 
 # Getting Started
-To perform this exercise, all you'll need is a running JVM, and a recent copy of the [PlayFramework|http://www.playframework.com/download] (2.1.4 as of this writing)
+To perform this exercise, all you'll need is a running JVM, and a recent copy of the [PlayFramework](http://www.playframework.com/download) - 2.1.4 as of this writing
 
 Once you've got the necessary prerequisites, open up the project in your favorite IDE, and head over to app/controllers/Cities.scala,
 where you'll see a few utility methods to get you started, along with an example of how *NOT* to use Play.
