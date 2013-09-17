@@ -33,7 +33,7 @@ object Cities extends Controller {
     NotImplemented
   }
 
-  def makeGeocodeRequest(apiKey: String, cityName: String) ={
+  def makeGeocodeRequest(apiKey: String, cityName: String) = {
     WS.url(geocodeUrl).withQueryString(("q", cityName), ("key", apiKey)).get()
   }
 
