@@ -10,7 +10,7 @@ object Cities extends Controller {
 
   /**
    * A sample function which does PLENTY the wrong way.
-   * It's here as an example of both what NOT to do, but also how to f
+   * It's here as an example of both what NOT to do, but also how to find locations and one way to produce JSON
    * @param apiKey the authorization key for this service (you should have been provided one)
    * @param city the name of a city
    * @return respond w/ JSON showing the cities' formatted address, latitude, and longitude
