@@ -30,13 +30,17 @@ Additionally, assume that any input will correctly geocode, and results for thes
 
 ## Examples:
 An example request showing the use of our findLocation function:
+
     curl 'http://localhost:9000/geocodeCity?apiKey=0b40d6b2895828a8c7b66f9f73f3c18f&city=Denver'
 
 And it's example response:
+
     {"name":"Denver, CO","latitude":"39.74000930786133","longitude":"-104.99230194091797"}
 
 An example request to the findFurthest function that you'll be working on
+
     curl 'http://localhost:9000/furthestFromEquator?apiKey=0b40d6b2895828a8c7b66f9f73f3c18f' -d '{"cities": ["Seattle WA", "Portland ME"]}'
 
 And an example of the expected (status 200) response:
+
     {"name":"Seattle, WA"}
