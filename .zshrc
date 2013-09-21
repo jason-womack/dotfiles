@@ -40,7 +40,11 @@ alias la='ls -Ga'
 alias info='info --vi-keys'
 alias less='less --tab=4 --no-init --LONG-PROMPT --ignore-case --squeeze-blank-line -R'
 alias git-diff='git diff --color --minimal -b -w'
+alias res='source ~/.zshrc'
 
 EDITOR=`which-command vim`
 PAGER=`which-command less`
 LESS=`which-command less`
+
+## Application Memory Settings
+export SBT_OPTS='-XX:MaxPermSize=256M -Xmx1536M -Xms512M'
