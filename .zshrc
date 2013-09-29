@@ -26,9 +26,15 @@ export ZSH_THEME="muse"
 # Uncomment following line if you want disable red dots displayed while waiting for completion
 # DISABLE_COMPLETION_WAITING_DOTS="true"
 
+if [ -N /usr/local/Cellar/zsh-syntax-highlighting/0.2.0/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]
+	then cp -rf /usr/local/Cellar/zsh-syntax-highlighting/0.2.0/share/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
+	echo 'Updating zsh-syntax-highlighting plugin'
+fi
+
+fpath=(/usr/local/share/zsh-completions $fpath)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ant brew command-coloring macports extract git-flow github osx ssh-agent textmate vi-mode)
+plugins=(git ant brew command-coloring macports extract git-flow github osx ssh-agent textmate vi-mode zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
