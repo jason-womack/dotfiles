@@ -3,6 +3,10 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/sbin:
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
+
+export HISTCONTROL=ignoredups
+export HISTTIMEFORMAT='%F %T '
+
 export ZSH=$HOME/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -68,6 +72,7 @@ export ZLS_COLORS='no=00;38;5;244:rs=0:di=00;38;5;33:ln=01;38;5;37:mh=00:pi=48;5
 
 
 ## Application Settings
+export MAVEN_OPTS="-Xmx1024M -XX:MaxPermSize=512m"
 export SBT_OPTS='-XX:MaxPermSize=256M -Xmx1536M -Xms512M'
 export JAVA_TOOL_OPTIONS='-Djava.awt.headless=true'
 export GIT_HOME='/Users/Jason/dev'
