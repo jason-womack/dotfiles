@@ -31,19 +31,43 @@ export ZSH_THEME="muse"
 # Uncomment following line if you want disable red dots displayed while waiting for completion
 # DISABLE_COMPLETION_WAITING_DOTS="true"
 
-if [ -N /usr/local/Cellar/zsh-syntax-highlighting/0.2.0/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]
-	then cp -rf /usr/local/Cellar/zsh-syntax-highlighting/0.2.0/share/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
+source $ZSH/oh-my-zsh.sh
+
+if [ -N /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]
+	then cp -rf /usr/local/opt/zsh-syntax-highlightingshare/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
 	echo 'Updating zsh-syntax-highlighting plugin'
 fi
+
+if [ -N /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]
+	then cp -rf /usr/local/opt/zsh-history-substring-search ~/.oh-my-zsh/custom/plugins
+	echo 'Updating zsh-history-substring-search plugin'
+fi
+
+source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ant brew command-coloring macports extract git-flow github osx ssh-agent textmate vi-mode zsh-syntax-highlighting)
+plugins=(git ant brew command-coloring macports extract git-flow github osx ssh-agent textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search)
 
-source $ZSH/oh-my-zsh.sh
+# bind UP and DOWN arrow keys
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# bind P and N for EMACS mode
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+# bind k and j for VI mode
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
 
 # Customize to your needs...
+## Function Definitions
+function xmlformat () { xmllint --format $1 > $1.format; mv $1.format $1; }
 
 ## Alias configuration
 setopt complete_aliases # aliased ls needs if file/dir completions work
