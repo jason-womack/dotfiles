@@ -31,8 +31,6 @@ export ZSH_THEME="muse"
 # Uncomment following line if you want disable red dots displayed while waiting for completion
 # DISABLE_COMPLETION_WAITING_DOTS="true"
 
-source $ZSH/oh-my-zsh.sh
-
 if [ -N /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]
 	then cp -rf /usr/local/opt/zsh-syntax-highlightingshare/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
 	echo 'Updating zsh-syntax-highlighting plugin'
@@ -49,7 +47,9 @@ source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.
 fpath=(/usr/local/share/zsh-completions $fpath)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ant brew command-coloring macports extract git-flow github osx ssh-agent textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search)
+plugins=(git git-extras ant brew gem ruby rvm scala sbt python pylint pyenv virtualenvwrapper pip node mvn command-coloring macports extract git-flow github osx ssh-agent sublime textmate vi-mode zsh-completions wd zsh-syntax-highlighting zsh-history-substring-search)
+
+source $ZSH/oh-my-zsh.sh
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
@@ -68,9 +68,15 @@ bindkey -M vicmd 'j' history-substring-search-down
 # Customize to your needs...
 ## Function Definitions
 function xmlformat () { xmllint --format $1 > $1.format; mv $1.format $1; }
+function java_use() {
+    export JAVA_HOME=$(/usr/libexec/java_home -v $1)
+    export PATH=$JAVA_HOME/bin:$PATH
+    java -version
+}
 
 ## Alias configuration
 setopt complete_aliases # aliased ls needs if file/dir completions work
+alias java_ls='/usr/libexec/java_home -V 2>&1 | grep -E "\d.\d.\d_\d\d" | cut -d , -f 1 | colrm 1 4 | grep -v Home'
 alias ls='ls -F --color=auto'
 alias l='ls'
 alias ll='ls -l'
@@ -84,6 +90,16 @@ alias relaunchd='grep -E "^setenv" /etc/launchd.conf | xargs -t -L 1 launchctl'
 alias wiremock='cd ~/dev/middleware/platform/wiremock; ./start-wiremock.sh'
 alias maven='mvn clean install'
 alias mail-debug='python -m smtpd -n -c DebuggingServer localhost:3025'
+
+export DEV_HOME=~/dev
+
+alias kill_nginx='sudo kill -QUIT $( cat /usr/local/nginx/logs/nginx.pid )'
+alias restart_nginx='sudo kill -HUP $( cat /usr/local/nginx/logs/nginx.pid )'
+alias start_nginx='sudo /usr/local/nginx/sbin/nginx -c $DEV_HOME/datuweb/DatuWeb/config/nginx.conf'
+alias test_nginx='sudo /usr/local/nginx/sbin/nginx -t -c $DEV_HOME/datuweb/DatuWeb/config/nginx.conf'
+
+
+
 
 EDITOR=`which-command vim`
 PAGER=`which-command less`
@@ -100,3 +116,5 @@ export MAVEN_OPTS="-Xmx1024M -XX:MaxPermSize=512m"
 export SBT_OPTS='-XX:MaxPermSize=256M -Xmx1536M -Xms512M'
 export JAVA_TOOL_OPTIONS='-Djava.awt.headless=true'
 export GIT_HOME='/Users/Jason/dev'
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
