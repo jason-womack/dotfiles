@@ -49,7 +49,7 @@ source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.
 fpath=(/usr/local/share/zsh-completions $fpath)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ant brew command-coloring macports extract git-flow github osx ssh-agent textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search)
+plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search)
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
@@ -72,6 +72,13 @@ function java_use() {
     export JAVA_HOME=$(/usr/libexec/java_home -v $1)
     export PATH=$JAVA_HOME/bin:$PATH
     java -version
+}
+function brew-relink() { brew unlink $1 && brew link $1 }
+function brew-relink-all() { 
+    brewed=$( brew list)
+    for i in $brewed;
+    do brew unlink $i && brew link $i
+    done
 }
 
 ## Alias configuration
