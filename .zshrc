@@ -33,6 +33,21 @@ export ZSH_THEME="muse"
 
 source $ZSH/oh-my-zsh.sh
 
+source "$HOME/.antigen/antigen.zsh"
+
+antigen-use oh-my-zsh
+antigen-bundle arialdomartini/oh-my-git
+antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
+
+antigen-apply
+
+VIRTUAL_ENV_DISABLE_PROMPT=true
+function omg_prompt_callback() {
+    if [ -n "${VIRTUAL_ENV}" ]; then
+        echo "\e[0;31m(`basename ${VIRTUAL_ENV}`)\e[0m "
+    fi
+}
+
 if [ -N /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]
 	then cp -rf /usr/local/opt/zsh-syntax-highlightingshare/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
 	echo 'Updating zsh-syntax-highlighting plugin'
@@ -73,6 +88,19 @@ function java_use() {
     export PATH=$JAVA_HOME/bin:$PATH
     java -version
 }
+function setjdk() {
+    if [ $# -ne 0 ]; then
+        removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
+        if [ -n "${JAVA_HOME+x}" ]; then
+            removeFromPath $JAVA_HOME
+        fi
+        export JAVA_HOME=`/usr/libexec/java_home -v $@`
+        export PATH=$JAVA_HOME/bin:$PATH
+    fi
+}
+function removeFromPath() {
+    export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
+}
 function brew-relink() { brew unlink $1 && brew link $1 }
 function brew-relink-all() { 
     brewed=$( brew list)
@@ -101,11 +129,13 @@ alias mail-debug='python -m smtpd -n -c DebuggingServer localhost:3025'
 export DEV_HOME=~/dev
 
 alias kill_nginx='sudo kill -QUIT $( cat /usr/local/nginx/logs/nginx.pid )'
-alias restart_nginx='sudo kill -HUP $( cat /usr/local/nginx/logs/nginx.pid )'
-alias start_nginx='sudo /usr/local/nginx/sbin/nginx -c $DEV_HOME/datuweb/DatuWeb/config/nginx.conf'
-alias test_nginx='sudo /usr/local/nginx/sbin/nginx -t -c $DEV_HOME/datuweb/DatuWeb/config/nginx.conf'
+#alias restart_nginx='sudo kill -HUP $( cat /usr/local/nginx/logs/nginx.pid )'
+alias restart_nginx='stop_nginx || start_nginx'
+alias start_nginx='sudo /usr/local/nginx/sbin/nginx -c ~/dev/hubs/datuweb/DatuWeb/config/nginx.conf'
+alias stop_nginx='sudo /usr/local/nginx/sbin/nginx -s stop'
+alias test_nginx='sudo /usr/local/nginx/sbin/nginx -t -c ~/dev/hubs/datuweb/DatuWeb/config/nginx.conf'
 
-
+eval "$(jenv init -)"
 
 
 EDITOR=`which-command vim`
