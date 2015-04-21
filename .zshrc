@@ -66,6 +66,8 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search)
 
+rm -f ~/.zcompdump; compinit
+
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
