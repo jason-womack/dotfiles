@@ -1,8 +1,10 @@
 #Fix path for homebrew
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/sbin:$PATH"
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/sbin:$HOME/.jenv/bin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
+
+eval "$(jenv init -)"
 
 export HISTCONTROL=ignoredups
 export HISTTIMEFORMAT='%F %T '
@@ -152,8 +154,9 @@ export ZLS_COLORS='no=00;38;5;244:rs=0:di=00;38;5;33:ln=01;38;5;37:mh=00:pi=48;5
 
 ## Application Settings
 export MAVEN_OPTS="-Xmx1024M -XX:MaxPermSize=512m"
-export SBT_OPTS='-XX:MaxPermSize=256M -Xmx1536M -Xms512M'
+#export SBT_OPTS='-JXX:MaxPermSize=256M -JXmx1536M -JXms512M'
 export JAVA_TOOL_OPTIONS='-Djava.awt.headless=true'
-export GIT_HOME='/Users/Jason/dev'
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export GOPATH=/Users/solidfire/src
+export SONAR_RUNNER_HOME=/usr/local/opt/sonar-runner/libexec
