@@ -50,7 +50,7 @@ function omg_prompt_callback() {
     fi
 }
 
-if [ -N /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]
+if [ -N /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 	then cp -rf /usr/local/opt/zsh-syntax-highlightingshare/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
 	echo 'Updating zsh-syntax-highlighting plugin'
 fi
@@ -60,13 +60,13 @@ if [ -N /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search
 	echo 'Updating zsh-history-substring-search plugin'
 fi
 
-source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search)
+plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search zsh-256color)
 
 rm -f ~/.zcompdump; compinit
 
