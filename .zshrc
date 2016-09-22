@@ -60,7 +60,7 @@ if [ -N /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search
 	echo 'Updating zsh-history-substring-search plugin'
 fi
 
-source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -83,6 +83,8 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 # Customize to your needs...
 ## Function Definitions
