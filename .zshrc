@@ -6,7 +6,6 @@ ZSH=$HOME/.oh-my-zsh
 
 eval "$(jenv init -)"
 
-export HISTCONTROL=ignoredups
 export HISTTIMEFORMAT='%F %T '
 
 export ZSH=$HOME/.oh-my-zsh
@@ -62,18 +61,24 @@ fi
 
 source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
 
 fpath=(/usr/local/share/zsh-completions $fpath)
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search)
-
-rm -f ~/.zcompdump; compinit
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# bind UP and DOWN arrow keys (compatibility fallback
+# for Ubuntu 12.04, Fedora 21, and MacOSX 10.9 users)
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 # bind P and N for EMACS mode
 bindkey -M emacs '^P' history-substring-search-up
@@ -162,3 +167,13 @@ export JAVA_TOOL_OPTIONS='-Djava.awt.headless=true'
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export GOPATH=/Users/solidfire/src
 export SONAR_RUNNER_HOME=/usr/local/opt/sonar-runner/libexec
+
+export SDK_HOME=$HOME/solid
+PATH=$PATH:$SDK_HOME
+
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' list-colors "$LS_COLORS"
+
+rm -f ~/.zcompdump; compinit
