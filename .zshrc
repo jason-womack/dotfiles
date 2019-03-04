@@ -1,5 +1,5 @@
 #Fix path for homebrew
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:/usr/sbin:$HOME/.jenv/bin:$PATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/sbin:$HOME/.jenv/bin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
@@ -7,10 +7,12 @@ ZSH=$HOME/.oh-my-zsh
 eval "$(jenv init -)"
 
 export HISTTIMEFORMAT='%F %T '
+export KEYTIMEOUT=1
 
 export ZSH=$HOME/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -50,17 +52,17 @@ function omg_prompt_callback() {
 }
 
 if [ -N /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
-	then cp -rf /usr/local/opt/zsh-syntax-highlightingshare/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
+	then cp -rf /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
 	echo 'Updating zsh-syntax-highlighting plugin'
 fi
 
-if [ -N /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]
-	then cp -rf /usr/local/opt/zsh-history-substring-search ~/.oh-my-zsh/custom/plugins
+if [ -N /usr/local/opt/zsh-history-substring-search/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]
+	then cp -rf /usr/local/opt/zsh-history-substring-search/share/zsh-history-substring-search ~/.oh-my-zsh/custom/plugins
 	echo 'Updating zsh-history-substring-search plugin'
 fi
 
 source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/local/opt/zsh-history-substring-search/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
 
@@ -68,9 +70,16 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search zsh-256color)
+plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search zsh-256color zsh-autosuggestions)
 
-# bind UP and DOWN arrow keys
+## bund LEFT and RIGHT arrow keys
+bindkey "[D" backward-word
+bindkey "[C" forward-word
+bindkey "^[a" beginning-of-line
+bindkey "^[e" end-of-line
+
+
+## bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
@@ -177,3 +186,5 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' list-colors "$LS_COLORS"
 
 rm -f ~/.zcompdump; compinit
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
