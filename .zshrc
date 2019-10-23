@@ -21,35 +21,42 @@ antigen use oh-my-zsh
 antigen bundle arialdomartini/oh-my-git
 antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
 
+#antigen theme romkatv/powerlevel10k
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-docker
+antigen bundle psprint/zsh-navigation-tools
+antigen bundle git
+antigen bundle colorize
+antigen bundle colored-man-pages
+antigen bundle command-not-found
+antigen bundle macports
+antigen bundle osx
+antigen bundle github
+antigen bundle extract
+antigen bundle git-extras
+antigen bundle github
+antigen bundle vi-mode
+antigen bundle ssh-agent
+antigen bundle screen
+antigen bundle pip
+antigen bundle python
+antigen bundle virtualenv
+
+
+antigen bundle chrissicool/zsh-256color
+
+
 antigen apply
 
-VIRTUAL_ENV_DISABLE_PROMPT=true
-function omg_prompt_callback() {
-    if [ -n "${VIRTUAL_ENV}" ]; then
-        echo "\e[0;31m(`basename ${VIRTUAL_ENV}`)\e[0m "
-    fi
-}
-
-if [ -N /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
-	then cp -rf /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
-	echo 'Updating zsh-syntax-highlighting plugin'
-fi
-
-if [ -N /usr/local/opt/zsh-history-substring-search/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]
-	then cp -rf /usr/local/opt/zsh-history-substring-search/share/zsh-history-substring-search ~/.oh-my-zsh/custom/plugins
-	echo 'Updating zsh-history-substring-search plugin'
-fi
-
-source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/opt/zsh-history-substring-search/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search zsh-256color zsh-autosuggestions)
+#plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode )
+#plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search zsh-256color zsh-autosuggestions)
 
 ## bund LEFT and RIGHT arrow keys
 bindkey "[D" backward-word
