@@ -15,7 +15,7 @@
 #if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
 # source ~/.zpath
 #fi
-export LC_ALL=ja_JP.UTF-8
+export LC_ALL=en_US.UTF-8
 limit coredumpsize 0
 
 autoload colors && colors

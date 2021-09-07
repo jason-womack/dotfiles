@@ -1,27 +1,36 @@
 #Fix path for homebrew
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/sbin:$HOME/.jenv/bin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-# Path to your oh-my-zsh configuration.
 
+export DOC_OPTS=( -v /Users/jwomack-LT/.zshrc:/root/.zshrc -v /Users/jwomack-LT/.p10k.zsh:/root/.p10k.zsh -v /Users/jwomack-LT/.ssh:/root/.ssh -v /Users/jwomack-LT/.zsh_history:/root/.zsh_history )
 
 export HISTTIMEFORMAT='%F %T '
 export KEYTIMEOUT=1
 
-#export ZSH=$HOME/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-#export ZSH_THEME="muse"
+export MYSQL_HOST=localhost
+export KAFKA_HOST=localhost
+export CASSANDRA_HOST=localhost
+export ORACLE_HOST=localhost
 
-#source $ZSH/oh-my-zsh.sh
+
+if [[ ! -d "$HOME/.antigen" ]]; then
+	mkdir "$HOME/.antigen"
+fi
+
+
+if [[ ! -a "$HOME/.antigen/antigen.zsh" ]]; then 
+	curl -L git.io/antigen > "$HOME/.antigen/antigen.zsh"
+fi
+
 
 source "$HOME/.antigen/antigen.zsh"
 
 antigen use oh-my-zsh
-antigen bundle arialdomartini/oh-my-git
-antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
 
-#antigen theme romkatv/powerlevel10k
+antigen theme romkatv/powerlevel10k
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
@@ -39,24 +48,23 @@ antigen bundle github
 antigen bundle extract
 antigen bundle git-extras
 antigen bundle github
-antigen bundle vi-mode
+#antigen bundle vi-mode
 antigen bundle ssh-agent
 antigen bundle screen
 antigen bundle pip
 antigen bundle python
 antigen bundle virtualenv
 
-
 antigen bundle chrissicool/zsh-256color
-
 
 antigen apply
 
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-#plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode )
-#plugins=(git ant brew command-coloring macports extract git-extras git-flow github osx ssh-agent npm textmate vi-mode zsh-completions zsh-syntax-highlighting zsh-history-substring-search zsh-256color zsh-autosuggestions)
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 ## bund LEFT and RIGHT arrow keys
 bindkey "[D" backward-word
@@ -83,37 +91,12 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-
 # Customize to your needs...
 ## Function Definitions
-function xmlformat () { xmllint --format $1 > $1.format; mv $1.format $1; }
-function java_use() {
-    export JAVA_HOME=$(/usr/libexec/java_home -v $1)
-    export PATH=$JAVA_HOME/bin:$PATH
-    java -version
-}
-function setjdk() {
-    if [ $# -ne 0 ]; then
-        removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
-        if [ -n "${JAVA_HOME+x}" ]; then
-            removeFromPath $JAVA_HOME
-        fi
-        export JAVA_HOME=`/usr/libexec/java_home -v $@`
-        export PATH=$JAVA_HOME/bin:$PATH
-    fi
-}
 function removeFromPath() {
     export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
 }
 function brew-relink() { brew unlink $1 && brew link $1 }
-function brew-relink-all() { 
-    brewed=$( brew list)
-    for i in $brewed;
-    do brew unlink $i && brew link $i
-    done
-}
 
 ## Alias configuration
 setopt complete_aliases # aliased ls needs if file/dir completions work
@@ -148,7 +131,7 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' list-colors "$LS_COLORS"
 
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+#test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 autoload -Uz compinit
 if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
@@ -157,3 +140,6 @@ else
   compinit -C
 fi
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="/usr/local/opt/binutils/bin:$PATH"
