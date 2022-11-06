@@ -1,5 +1,12 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #Fix path for homebrew
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/sbin:$HOME/.jenv/bin:$PATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/sbin:$HOME/.jenv/bin:$HOME/.pyenv/bin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 export DOC_OPTS=( -v /Users/jwomack-LT/.zshrc:/root/.zshrc -v /Users/jwomack-LT/.p10k.zsh:/root/.p10k.zsh -v /Users/jwomack-LT/.ssh:/root/.ssh -v /Users/jwomack-LT/.zsh_history:/root/.zsh_history )
@@ -14,6 +21,7 @@ export MYSQL_HOST=localhost
 export KAFKA_HOST=localhost
 export CASSANDRA_HOST=localhost
 export ORACLE_HOST=localhost
+
 
 
 if [[ ! -d "$HOME/.antigen" ]]; then
@@ -56,6 +64,7 @@ antigen bundle python
 antigen bundle virtualenv
 
 antigen bundle chrissicool/zsh-256color
+antigen bundle "MichaelAquilina/zsh-you-should-use"
 
 antigen apply
 
@@ -63,8 +72,15 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
 
 ## bund LEFT and RIGHT arrow keys
 bindkey "[D" backward-word
@@ -143,3 +159,17 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/usr/local/opt/binutils/bin:$PATH"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+source <(kubectl completion zsh)
+
+export PATH="/usr/local/opt/curl/bin:$PATH"
+
+source <(kubectl completion zsh)
+export PATH="/Users/jwomack/go/bin:$PATH"
+export GOPATH="/Users/jwomack/solid/aiq/go"
+export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
+export JAVA_HOME="/usr/local/Cellar/openjdk@11/11.0.16.1_1/libexec/openjdk.jdk/Contents/Home"
